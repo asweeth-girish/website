@@ -1,0 +1,54 @@
+<!-- Role Selector on top -->
+<div class="role-selector">
+  <label for="roleSelect">Select Role:</label>
+  <select id="roleSelect" [(ngModel)]="selectedRoleId" (change)="onRoleChange()">
+    <option *ngFor="let role of roles" [value]="role.id">{{ role.role }}</option>
+  </select>
+</div>
+
+<!-- Modules Container -->
+<div class="modules-container">
+  <div *ngFor="let mod of moduleAccessList" class="module-tile" [style.borderColor]="mod.themecolor">
+    <div class="top-pill" [style.backgroundColor]="mod.themecolor">
+      {{ mod.label || 'No Label' }}
+    </div>
+
+    <div class="field"><strong>Name:</strong> {{ mod.name }}</div>
+
+    <div class="field">
+      <strong>Enabled:</strong>
+      <input type="checkbox" [(ngModel)]="mod.enabled" />
+    </div>
+
+    <!-- Editable Label -->
+    <div class="field">
+      <strong>Label:</strong>
+      <input type="text" [(ngModel)]="mod.label" (blur)="mod.isEdited = true" />
+    </div>
+
+    <!-- Editable Icon -->
+    <div class="field">
+      <strong>Icon:</strong>
+      <input type="text" [(ngModel)]="mod.icon" (blur)="mod.isEdited = true" />
+      <mat-icon>{{ mod.icon || 'extension' }}</mat-icon>
+    </div>
+
+    <!-- Editable Theme Color -->
+    <div class="field">
+      <strong>Theme Color:</strong>
+      <input type="color" [(ngModel)]="mod.themecolor" (change)="mod.isEdited = true" />
+      <span class="color-box" [style.backgroundColor]="mod.themecolor"></span>
+    </div>
+
+    <div class="field">
+      <strong>Require Auth:</strong>
+      <input type="checkbox" [(ngModel)]="mod.requiredAuth" />
+    </div>
+  </div>
+</div>
+
+<!-- Action Buttons -->
+<div class="actions">
+  <button (click)="saveModuleAccess()">Save Role Access</button>
+  <button (click)="saveOverrides()">Save User Overrides</button>
+</div>
